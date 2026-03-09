@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Log In — Eventify{% endblock %}
+{% block title %}Log In {% endblock %}
 
 {% block content %}
 <div class="auth-card">
   <div style="text-align:center; margin-bottom:2rem;">
-    <a href="{% url 'home' %}" style="font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; color:var(--brand);">⚡ Eventify</a>
+    <a href="{% url 'home' %}" style="font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; color:var(--brand);">⚡ Event Hub</a>
     <h2 style="margin-top:1rem; font-size:1.5rem;">Welcome back</h2>
-    <p style="color:var(--muted); font-size:.9rem;">Log in to manage events &amp; tickets</p>
+    <p style="color:var(--muted); font-size:.9rem;">Log in to manage events & tickets</p>
   </div>
 
   <form method="POST">
