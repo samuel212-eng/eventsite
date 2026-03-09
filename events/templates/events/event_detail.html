@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}{{ event.title }} — Eventify{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row g-5">
+
+    <!-- ===== LEFT COLUMN — main info ===== -->
+    <div class="col-lg-8">
+
+      <!-- Event image or placeholder -->
+      {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}"
+             style="width:100%; height:380px; object-fit:cover; border-radius:var(--radius); margin-bottom:2rem;">
+      {% else %}
+        <div class="img-placeholder" style="height:380px; border-radius:var(--radius); margin-bottom:2rem; font-size:5rem;">
+          <i class="bi bi-calendar-event"></i>
+        </div>
+      {% endif %}
+
+      {% if event.category %}
+        <div class="tag mb-3">{{ event.category.name }}</div>
+      {% endif %}
+
+      <h1 style="font-size:2.5rem; margin-bottom:1rem;">{{ event.title }}</h1>
+
+      <div class="d-flex flex-wrap gap-4 mb-4" style="color:var(--muted);">
+        <span><i class="bi bi-calendar3 me-1" style="color:var(--brand);"></i>{{ event.date|date:"l, F j, Y" }}</span>
+        <span><i class="bi bi-clock me-1"    style="color:var(--brand);"></i>{{ event.date|date:"g:i A" }}</span>
+        <span><i class="bi bi-geo-alt me-1"  style="color:var(--brand);"></i>{{ event.location }}</span>
+      </div>
+
+      <hr>
+
+      <h3 style="margin:1.5rem 0 1rem;">About this event</h3>
+      <div style="color:var(--muted); line-height:1.8; white-space:pre-line;">
+        {{ event.description }}
+      </div>
+
+      <!-- Organiser -->
+      <div style="
+        background:var(--surface); border:1px solid var(--border);
+        border-radius:var(--radius); padding:1.25rem; margin-top:2rem;
+      ">
+        <div class="d-flex align-items-center gap-3">
+          <div style="
+            width:48px; height:48px; border-radius:50%;
+            background:var(--brand); display:flex; align-items:center; justify-content:center;
+            font-family:'Syne',sans-serif; font-weight:700; font-size:1.2rem;
+          ">
+            {{ event.organizer.username|first|upper }}
+          </div>
+          <div>
+            <div style="font-weight:600;">{{ event.organizer.get_full_name|default:event.organizer.username }}</div>
+            <div style="color:var(--muted); font-size:.875rem;">Event Organiser</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RIGHT COLUMN — ticket box ===== -->
+    <div class="col-lg-4">
+      <div style="
+        background:var(--card-bg); border:1px solid var(--border);
+        border-radius:var(--radius); padding:2rem; position:sticky; top:90px;
+      ">
+        <div class="price-tag mb-3" style="font-size:2rem;">
+          {% if event.price == 0 %}Free{% else %}${{ event.price }}{% endif %}
+        </div>
+
+        <div class="mb-3" style="color:var(--muted); font-size:.9rem;">
+          <div class="d-flex justify-content-between mb-2">
+            <span><i class="bi bi-people me-1"></i>Capacity</span>
+            <span style="color:var(--text);">{{ event.capacity }}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span><i class="bi bi-ticket me-1"></i>Available</span>
+            <span style="color:{% if event.is_full %}#FF6B6B{% else %}#19C878{% endif %}; font-weight:600;">
+              {% if event.is_full %}Sold Out{% else %}{{ event.spots_left }}{% endif %}
+            </span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span><i class="bi bi-calendar-check me-1"></i>Date</span>
+            <span style="color:var(--text);">{{ event.date|date:"M d, Y" }}</span>
+          </div>
+        </div>
+
+        <hr>
+
+        {% if user.is_authenticated %}
+          {% if already_registered %}
+            <div class="alert alert-success text-center mb-3">
+              <i class="bi bi-check-circle-fill me-1"></i> You're registered!
+            </div>
+            <a href="{% url 'my_tickets' %}" class="btn btn-outline-brand w-100">View My Tickets</a>
+          {% elif event.is_full %}
+            <button class="btn w-100" disabled style="background:var(--surface); color:var(--muted); border-radius:50px;">
+              Sold Out
+            </button>
+          {% else %}
+            <a href="{% url 'event_register' event.pk %}" class="btn btn-brand w-100" style="padding:.8rem;">
+              <i class="bi bi-ticket me-1"></i> Register Now
+            </a>
+          {% endif %}
+
+          {% if user == event.organizer %}
+            <hr>
+            <div class="d-flex gap-2 mt-3">
+              <a href="{% url 'event_edit' event.pk %}" class="btn btn-outline-brand btn-sm flex-fill">
+                <i class="bi bi-pencil me-1"></i>Edit
+              </a>
+              <a href="{% url 'event_delete' event.pk %}" class="btn btn-sm flex-fill"
+                 style="background:rgba(255,77,109,0.1); color:var(--brand); border:1px solid rgba(255,77,109,0.3); border-radius:50px;">
+                <i class="bi bi-trash me-1"></i>Delete
+              </a>
+            </div>
+          {% endif %}
+
+        {% else %}
+          <p style="color:var(--muted); font-size:.875rem; text-align:center; margin-bottom:1rem;">
+            Sign in to register for this event
+          </p>
+          <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-brand w-100">
+            Log in to Register
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
