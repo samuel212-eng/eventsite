@@ -1,7 +1,5 @@
-# =============================================
 #  Views — one function per page
 #  Each view gets a request and returns a page
-# =============================================
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login
@@ -11,10 +9,7 @@ from django.db.models import Q
 from .models import Event, Category, Registration
 from .forms import SignUpForm, EventForm, RegistrationForm
 
-
-# --------------------------------------------------
 # HOME PAGE
-# --------------------------------------------------
 def home(request):
     """The landing page with featured events"""
     upcoming_events = Event.objects.filter(is_published=True).order_by('date')[:6]
@@ -26,10 +21,7 @@ def home(request):
         'total_events':    total_events,
     })
 
-
-# --------------------------------------------------
 # EVENT LIST
-# --------------------------------------------------
 def event_list(request):
     """All events, with search and category filter"""
     events     = Event.objects.filter(is_published=True)
@@ -56,10 +48,7 @@ def event_list(request):
         'selected_category': cat_id,
     })
 
-
-# --------------------------------------------------
 # EVENT DETAIL
-# --------------------------------------------------
 def event_detail(request, pk):
     """One event's full page"""
     event = get_object_or_404(Event, pk=pk, is_published=True)
@@ -77,9 +66,7 @@ def event_detail(request, pk):
     })
 
 
-# --------------------------------------------------
 # CREATE EVENT  (must be logged in)
-# --------------------------------------------------
 @login_required
 def event_create(request):
     """Page to create a new event"""
@@ -93,13 +80,10 @@ def event_create(request):
             return redirect('event_detail', pk=event.pk)
     else:
         form = EventForm()
-
     return render(request, 'events/event_form.html', {'form': form, 'action': 'Create'})
 
 
-# --------------------------------------------------
 # EDIT EVENT  (must be logged in + must be organizer)
-# --------------------------------------------------
 @login_required
 def event_edit(request, pk):
     """Page to edit an existing event"""
@@ -122,9 +106,7 @@ def event_edit(request, pk):
     return render(request, 'events/event_form.html', {'form': form, 'action': 'Edit', 'event': event})
 
 
-# --------------------------------------------------
 # DELETE EVENT  (must be logged in + must be organizer)
-# --------------------------------------------------
 @login_required
 def event_delete(request, pk):
     """Confirm and delete an event"""
@@ -143,9 +125,7 @@ def event_delete(request, pk):
     return render(request, 'events/event_confirm_delete.html', {'event': event})
 
 
-# --------------------------------------------------
 # REGISTER FOR EVENT
-# --------------------------------------------------
 @login_required
 def event_register(request, pk):
     """Sign up for an event"""
@@ -176,29 +156,21 @@ def event_register(request, pk):
     return render(request, 'events/event_register.html', {'form': form, 'event': event})
 
 
-# --------------------------------------------------
 # MY TICKETS
-# --------------------------------------------------
 @login_required
 def my_tickets(request):
     """All events the logged-in user has registered for"""
     registrations = Registration.objects.filter(user=request.user).order_by('-registered_at')
     return render(request, 'events/my_tickets.html', {'registrations': registrations})
 
-
-# --------------------------------------------------
 # MY EVENTS (events I organised)
-# --------------------------------------------------
 @login_required
 def my_events(request):
     """Events created by the logged-in user"""
     events = Event.objects.filter(organizer=request.user).order_by('-created_at')
     return render(request, 'events/my_events.html', {'events': events})
 
-
-# --------------------------------------------------
 # CANCEL REGISTRATION
-# --------------------------------------------------
 @login_required
 def cancel_registration(request, pk):
     """Cancel a registration"""
@@ -210,10 +182,7 @@ def cancel_registration(request, pk):
         return redirect('my_tickets')
     return render(request, 'events/cancel_confirm.html', {'registration': reg})
 
-
-# --------------------------------------------------
 # SIGN UP
-# --------------------------------------------------
 def signup(request):
     """New user registration page"""
     if request.user.is_authenticated:
