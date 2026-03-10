@@ -1,8 +1,3 @@
-# =============================================
-#  Models — these become our database tables
-#  Each class = one table, each field = one column
-# =============================================
-
 from django.db import models
 from django.contrib.auth.models import User
 
