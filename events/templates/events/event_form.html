@@ -30,7 +30,7 @@
             {% if field.field.required %}<span style="color:var(--brand);">*</span>{% endif %}
           </label>
 
-          <!-- Add Bootstrap classes to the field widget -->
+          <!-- Added Bootstrap classes to field widget -->
           {% if field.field.widget.input_type == 'checkbox' %}
             <div class="form-check">
               {{ field }}
@@ -42,7 +42,7 @@
             <div>{{ field }}</div>
           {% endif %}
 
-          <!-- Help text -->
+          <!-- Help textbox -->
           {% if field.help_text %}
             <div class="form-text" style="color:var(--muted); font-size:.8rem;">{{ field.help_text }}</div>
           {% endif %}
@@ -75,7 +75,7 @@
   </div>
 </div>
 
-<!-- Make form fields look right in our dark theme -->
+<!-- Make form fields with dark theme -->
 <style>
   input, select, textarea {
     width: 100%;
