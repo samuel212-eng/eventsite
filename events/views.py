@@ -1,6 +1,3 @@
-#  Views — one function per page
-#  Each view gets a request and returns a page
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -9,6 +6,8 @@ from django.db.models import Q
 from .models import Event, Category, Registration
 from .forms import SignUpForm, EventForm, RegistrationForm
 
+#  Views — one function per page
+#  Each view gets a request and returns a page
 # HOME PAGE
 def home(request):
     """The landing page with featured events"""
@@ -156,7 +155,7 @@ def event_register(request, pk):
     return render(request, 'events/event_register.html', {'form': form, 'event': event})
 
 
-# MY TICKETS
+# MY TICKETS PAGE
 @login_required
 def my_tickets(request):
     """All events the logged-in user has registered for"""
@@ -182,7 +181,7 @@ def cancel_registration(request, pk):
         return redirect('my_tickets')
     return render(request, 'events/cancel_confirm.html', {'registration': reg})
 
-# SIGN UP
+# SIGN UP FORM
 def signup(request):
     """New user registration page"""
     if request.user.is_authenticated:
