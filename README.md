@@ -108,6 +108,6 @@ eventsite/
 ## If pillow does not activate
 
 Run:
-    1. Source myenv/bin/activate
-    2. Pip install Pillow
-    3. python manage.py runserver 
+1. Source myenv/bin/activate
+2. Pip install Pillow
+3. python manage.py runserver 
