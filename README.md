@@ -1,4 +1,4 @@
-# ⚡ Eventify — Django Event Website
+# ⚡ Event Hub — Django Event Website
 
 A full-featured event management website built with Django, Bootstrap 5, and plain HTML/CSS. 
 
@@ -104,3 +104,10 @@ eventsite/
 3. Set `ALLOWED_HOSTS = ['yourdomain.com']`
 4. Use PostgreSQL instead of SQLite
 5. Serve static files with WhiteNoise or a CDN
+
+## If pillow does not activate
+
+Run:
+    1. Source myenv/bin/activate
+    2. Pip install Pillow
+    3. python manage.py runserver 
