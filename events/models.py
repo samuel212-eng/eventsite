@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
+#create your models here
 class Category(models.Model):
     """A category like: Music, Tech, Sports, Art"""
     name = models.CharField(max_length=100)
@@ -53,7 +53,6 @@ class Event(models.Model):
 
     class Meta:
         ordering = ['date']   # Newest dates first
-
 
 class Registration(models.Model):
     """A user signing up for an event"""
