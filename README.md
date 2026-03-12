@@ -111,3 +111,14 @@ Run:
 1. Source myenv/bin/activate
 2. Pip install Pillow
 3. python manage.py runserver 
+
+## If the project does not run:
+
+In the terminal run:
+1. sudo apt update
+2. sudo apt install python3-venv python3-full
+3. python3 -m venv venv
+4. source venv/bin/activate
+5. pip install django
+6. pip install Pillow
+7. python manage.py runserver
