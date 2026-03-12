@@ -1,7 +1,6 @@
-# =============================================
 #  Forms — the HTML forms users fill in
 #  Django auto-generates these from our models
-# =============================================
+
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -49,5 +48,5 @@ class RegistrationForm(forms.ModelForm):
 
         widgets = {
             'message': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Any special requests?'}),
-            'phone':   forms.TextInput(attrs={'placeholder': '+1 555 000 0000'}),
+            'phone':   forms.TextInput(attrs={'placeholder': '+254 000 0000'}),
         }
