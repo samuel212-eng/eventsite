@@ -17,12 +17,12 @@
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
-      <!-- Non-field errors (e.g. from clean()) -->
+      <!-- Non-field errors (i.e. from clean()) -->
       {% if form.non_field_errors %}
         <div class="alert alert-danger">{{ form.non_field_errors }}</div>
       {% endif %}
 
-      <!-- Loop through every field and render it nicely -->
+      <!-- Loop through every field and render it -->
       {% for field in form %}
         <div class="mb-4">
           <label class="form-label" for="{{ field.id_for_label }}">
