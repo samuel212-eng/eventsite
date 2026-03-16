@@ -21,7 +21,7 @@ class Event(models.Model):
     description = models.TextField()
     category    = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
-    # Date and place
+    # Date & place
     date     = models.DateTimeField()
     location = models.CharField(max_length=300)
 
@@ -32,7 +32,7 @@ class Event(models.Model):
     price    = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     capacity = models.PositiveIntegerField(default=100)
 
-    # Who created this event and when
+    # Who created event and when
     organizer  = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_events')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
