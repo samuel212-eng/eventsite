@@ -43,7 +43,7 @@
           <div><i class="bi bi-calendar3 me-1" style="color:var(--brand);"></i>{{ event.date|date:"M d, Y · g:i A" }}</div>
           <div><i class="bi bi-geo-alt me-1"   style="color:var(--brand);"></i>{{ event.location }}</div>
           <div><i class="bi bi-tag me-1"        style="color:var(--brand);"></i>
-            {% if event.price == 0 %}Free{% else %}${{ event.price }}{% endif %}
+            {% if event.price == 0 %}Free{% else %}ksh{{ event.price }}{% endif %}
           </div>
         </div>
       </div>

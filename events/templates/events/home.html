@@ -106,7 +106,7 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <span class="price-tag">
-                    {% if event.price == 0 %}Free{% else %}${{ event.price }}{% endif %}
+                    {% if event.price == 0 %}Free{% else %}Ksh{{ event.price }}{% endif %}
                   </span>
                   <span style="color:var(--muted); font-size:.8rem;">
                     {{ event.spots_left }} spots left

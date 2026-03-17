@@ -65,7 +65,7 @@
         border-radius:var(--radius); padding:2rem; position:sticky; top:90px;
       ">
         <div class="price-tag mb-3" style="font-size:2rem;">
-          {% if event.price == 0 %}Free{% else %}${{ event.price }}{% endif %}
+          {% if event.price == 0 %}Free{% else %}Ksh{{ event.price }}{% endif %}
         </div>
 
         <div class="mb-3" style="color:var(--muted); font-size:.9rem;">
